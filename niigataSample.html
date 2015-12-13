@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charaset="UTF-8" />
+		<title>RDF/XML to HTML List Sample</title>
+		<link href="css/listSample.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body xmlns:imi="http://imi.ipa.go.jp/ns/core/rdf#">
+		<div id="heder"></div>
+		<div id="container">
+			<div id="contents">
+				<table>
+						<tr>
+							<td>表記</td>
+							<td>年</td>
+							<td>月</td>
+							<td>日</td>
+							<td>都道府県</td>
+							<td>都道府県コード</td>
+						</tr>
+				<%parse
+					<tr>
+						<td property="imi:表記">{.表記}</td>
+						<td property="imi:年">{.年}</td>
+						<td property="imi:月">{.月}</td>
+						<td property="imi:日">{.日}</td>
+						<td property="都道府県">{.都道府県}</td>
+						<td property="都道府県コード">{.都道府県コード}</td>
+					</tr>
+				%>
+				</table>
+			</div>
+		</div>
+		<div id="footer"></div>
+	</body>
+</html>
