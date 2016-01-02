@@ -1,0 +1,9 @@
+{
+	[
+		<%parse
+			\{
+				name: {.name}, lat: {.lat}, long: {.long}
+			\},
+		%>
+	]
+}
