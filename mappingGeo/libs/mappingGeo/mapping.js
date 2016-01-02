@@ -1,9 +1,9 @@
 $(function(){
-	var template = "http://192.168.2.110/parserTemplates/geoTemplate.json";
+	var template = "https://raw.githubusercontent.com/schwarz471/parserTemplates/master/geoTemplate.json";
 	var rdf = "http://linkdata.org/api/1/rdf1s284i/AED_rdf.xml";
 
 	var rdfExt = "RDFXML";
-	var apiUrl = "http://192.168.2.110:8080/parserRDFa/api/uri/rdfparse";
+	var apiUrl = "http://parser-rdf.herokuapp.com/api/uri/rdfparse";
 
 	var reqUrl = apiUrl + "/" + rdfExt;
 
@@ -47,7 +47,6 @@ $(function(){
 			success: function(json, dataType){
 				var data = json.data;
 				var len = data.length;
-				console.log(json);
 				for(var i=0; i < len; i++){
 					var latlng = new google.maps.LatLng(data[i].lat, data[i].long);
 					marker = createMarker(latlng, data[i].name, map);
