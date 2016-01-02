@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="libs/mappingGeo/mapping.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
+		<link rel="stylesheet" type="text/css" href="css/mapping.css">
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="header"></div>
+			<div id="container">
+				<div id="content">
+					<form id="urls" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="html" id="html" />
+						<input type="text" name="RDF" id="RDF" />
+						<button id="redraw">表示</button>
+					</form>
+					<div id="mapCanvas"></div>
+				</div>
+			</div>
+			<div id="footer"></div>
+		</div>
+	</body>
+</html>

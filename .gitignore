@@ -1,0 +1,5 @@
+geoTemplate.json
+mappingGeo/libs/jquery/*
+!mappingGeo/libs/jquery/dist/
+mappingGeo/libs/jquery/dist/*
+!jquery.min.js
