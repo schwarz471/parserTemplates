@@ -2,7 +2,7 @@
 	"data": [
 		<%parse
 			\{
-				"name": "{.name}", "lat": "{.lat}", "long": "{.long}"
+				"name": "{*.name}", "lat": "{*.lat}", "long": "{*.long}"
 			\}\?L,\?
 		%>
 	]
