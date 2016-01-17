@@ -59,6 +59,13 @@ $(function(){
 	});
 });
 
+/**
+ * Google Map の初期化関数
+ * マップを生成して表示する
+ * @param  {float} lat 緯度
+ * @param  {float} long 経度
+ * @return {Map} map Google Map インスタンス
+ */
 function initialize(lat, long){
 	var mapCanvas = $("#mapCanvas")[0];
 	var mapOptions = {
@@ -71,6 +78,14 @@ function initialize(lat, long){
 	return map;
 }
 
+/**
+ * mapのGoogleMap上のlatlng座標にマーカーを生成する
+ * マーカーのコンテンツはname名前
+ * @param  {LatLng} latlng geometry
+ * @param  {String} name 名前
+ * @param  {Map} Google Map インスタンス
+ * @return {Marker} marker Google Mapのマーカーインスタンス
+ */
 function createMarker(latlng, name, map){
 	var infoWindow = new google.maps.InfoWindow();
 	var marker = new google.maps.Marker({position: latlng, map: map});
@@ -84,6 +99,10 @@ function createMarker(latlng, name, map){
 	return marker;
 }
 
+/**
+ * markerListのマーカーを削除する
+ * @param  {MVCArray} markerList マーカー配列
+ */
 function removeAllMarkers(markerList) {
 	markerList.forEach(function(marker, idx){
 		marker.setMap(null);
