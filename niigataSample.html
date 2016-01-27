@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="ja">
 	<head>
-		<meta charaset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>RDF/XML to HTML List Sample</title>
 		<link href="css/listSample.css" rel="stylesheet" type="text/css" />
 	</head>
@@ -20,7 +20,7 @@
 						</tr>
 				<%parse
 					<tr>
-						<td property="imi:名称">{*.名称}</td>
+						<td property="imi:名称"><a href="{*.Webサイト}">{*.名称}</a></td>
 						<td property="imi:年">{*.年}</td>
 						<td property="imi:月">{*.月}</td>
 						<td property="imi:日">{*.日}</td>
