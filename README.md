@@ -47,7 +47,134 @@ WebAPI
 
 ## Usage
 
-RDFパーサーに対して、
+###テンプレートファイルの書き方
+
+テンプレートは、以下の手順で記述することになる
+
+1. パース領域を指定する
+2. パース領域内にテンプレート構文を記述する
+
+以下にサンプルコード全体を示す。
+
+```
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>RDF/XML to HTML List Sample</title>
+		<link href="css/listSample.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body xmlns:imi="http://imi.ipa.go.jp/ns/core/rdf#">
+		<div id="heder"></div>
+		<div id="container">
+			<div id="contents">
+				<table>
+						<tr>
+							<td>名称</td>
+							<td>年</td>
+							<td>月</td>
+							<td>日</td>
+							<td>都道府県</td>
+							<td>都道府県コード</td>
+							<td>Webサイト</td>
+						</tr>
+				<%parse
+					<tr>
+						<td property="imi:名称">{*.名称}</td>
+						<td property="imi:年">{*.年}</td>
+						<td property="imi:月">{*.月}</td>
+						<td property="imi:日">{*.日}</td>
+						<td property="都道府県">{*.都道府県}</td>
+						<td property="都道府県コード">{*.都道府県コード}</td>
+						<td property="Webサイト">{*.Webサイト}</td>
+					</tr>
+				%>
+				</table>
+			</div>
+		</div>
+		<div id="footer"></div>
+	</body>
+</html>
+```
+
+パース領域は、 <%parse ～ %> で囲まれた部分が指定される。
+サンプルにおいては、
+
+```
+<%parse
+	<tr>
+		<td property="imi:名称">{*.名称}</td>
+		<td property="imi:年">{*.年}</td>
+		<td property="imi:月">{*.月}</td>
+		<td property="imi:日">{*.日}</td>
+		<td property="都道府県">{*.都道府県}</td>
+		<td property="都道府県コード">{*.都道府県コード}</td>
+		<td property="Webサイト">{*.Webサイト}</td>
+	</tr>
+%>
+```
+
+がパースの対象領域となる。
+この領域内にテンプレート構文を記述することで、指定した場所にデータが挿入されることになる。
+
+テンプレート構文は、{type名.プロパティ名} と記述することで、構文が記述された場所に指定したデータを埋め込むことができる。
+この type名 は、 * とすることで、全ての type を指定でき、サンプルコード
+
+```
+<td property="imi:名称">{*.名称}</td>
+```
+
+においては、RDFデータの内、全てのリソースの 名称 プロパティの値を {*.名称} の部分に埋め込む という構文になる。
+また、RDFデータの内、Person type リソースの name プロパティのデータを指定する場合は、 {Person.name} という構文になる。
+
+特殊構文として、以下のものが存在する。
+
+- 構文文字のエスケープ
+- データの最終行のみ出力させない文字の指定
+
+構文文字には、中括弧{}が利用されているが、パース領域内で中括弧{}を利用したい場合、
+\{ \}のように、文字の直前に\を付ける必要がある。
+2016/01/27 現在、中括弧以外の文字は自由に利用可能である。
+
+JSONのテンプレートを記述する場合等、データの最終行のみ出力させたくない文字列が存在する場合、
+\?L ～ \? の間に指定した文字に関しては、最終行のみ出力されなくなる。
+
+```
+<%parse
+	\{
+		"name": "{*.name}", "lat": "{*.lat}", "long": "{*.long}"
+	\}\?L,\?
+%>
+```
+
+上記のようにテンプレートを記述することで、データの最終行以外は 
+
+```
+{"name": "hoge", "lat": "111", "long": "11" },
+```
+
+のように出力され、データの最終行では、
+
+```
+{"name": "hoge", "lat": "111", "long": "11" }
+```
+
+のように、カンマ(,)が出力されなくなる。
+変換例は以下のようになる。
+
+```
+{
+	"data":[
+		{"name": "hoge", "lat": "111", "long": "11" },
+		{"name": "hogehoge", "lat": "112", "long": "12" },
+		{"name": "hogehogehoge", "lat": "113", "long": "13" }
+	]
+}
+```
+
+### オープンデータのパース
+
+任意のオープンデータをテンプレートの形式にパースするには、
 
 - オープンデータのフォーマット
 - オープンデータのURL
